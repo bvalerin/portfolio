@@ -330,7 +330,7 @@
           </div>
 
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-            <form action="forms/enviar.php" method="post" role="form" class="php-email-form">
+            <form id="contact_form" role="form" class="php-email-form">
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="name">Name</label>
@@ -391,6 +391,47 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+    $(function(){
+  
+      $('body').on("submit", "#contact_form", function(e){
+        
+        const data = {
+          "subject":"Contacto de sitio web",
+          "email": "b_valerin@icloud.com",
+          "name": "Bryan Valerin",
+          "message":"Este es mi mensaje personalizado, hola, me gustaria ponerme en contacto contigo para que me ayudes con ..."
+        }
+        
+        $.ajax({
+          url: "https://c9md7zkkqc.execute-api.us-east-1.amazonaws.com/api/send_email_function",
+          method:"POST",
+          data:data,
+          dataType:"JSON",
+          success: function (e) {
+            
+            if (e.success) {
+              alert("Su mensaje se envio con exito")
+            }else{
+              alert("Algo salio mal");
+            }
+
+          },
+          error: function (e) {
+            console.error(e);
+          }
+        });
+
+        return false;
+      });
+  
+    });
+  </script>
+
+
+  
+  </script>
 
 </body>
 
